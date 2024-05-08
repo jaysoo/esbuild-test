@@ -1,0 +1,37 @@
+{
+  "name": "foo",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "foo/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  },
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/foo",
+        "esbuildOptions": {
+          "banner": { "js": "/* FOO BAR */" }
+        },
+        "main": "foo/src/index.ts",
+        "tsConfig": "foo/tsconfig.lib.json",
+        "assets": ["foo/*.md"],
+        "generatePackageJson": true,
+        "format": ["cjs"]
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    }
+  }
+}
